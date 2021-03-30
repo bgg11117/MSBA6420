@@ -9,6 +9,8 @@ Predict how many future visitors a restaurant will receive
 
 ### Data Exploration
 
+1. run rrvf_eda_part_1.ipynb
+2. run rrvf_eda_part_2.ipynb
 
 ### Feature Processing + Modeling
 
