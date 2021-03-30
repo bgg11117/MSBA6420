@@ -16,4 +16,4 @@ Predict how many future visitors a restaurant will receive
 
 1. run rrvf_feature_engineering_additional.ipynb
 2. run rrvf_modeling_1st_modularization.ipynb
-*additional* run rrvf_modeling_1st_version_test.ipynb to test rrvf_modeling_1st_modularization.ipynb
+3. *additional* run rrvf_modeling_1st_version_test.ipynb to test rrvf_modeling_1st_modularization.ipynb
