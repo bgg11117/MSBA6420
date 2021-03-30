@@ -15,5 +15,5 @@ Predict how many future visitors a restaurant will receive
 ### Feature Processing + Modeling
 
 1. run rrvf_feature_engineering_additional.ipynb
-2. run rrvf_modeling_1st_modularization.ipynb
+2. run rrvf_modeling_1st_modularization.ipynb *(must import feature_engineering.py & utils.py)*
 3. *(additional)* run rrvf_modeling_1st_version_test.ipynb to test rrvf_modeling_1st_modularization.ipynb
