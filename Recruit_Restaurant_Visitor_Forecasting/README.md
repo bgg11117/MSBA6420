@@ -5,5 +5,5 @@
 
 ### Feature Processing + Modeling
 
-1. Step 1: rrvf_feature_engineering_additional.ipynb
-2. Step 2: rrvf_modeling_1st_modularization.ipynb
+1. run rrvf_feature_engineering_additional.ipynb
+2. run rrvf_modeling_1st_modularization.ipynb
