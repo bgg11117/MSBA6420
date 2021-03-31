@@ -20,4 +20,5 @@ Predict how many future visitors a restaurant will receive
 2. run rrvf_modeling_1st_modularization.ipynb *(must import feature_engineering.py & utils.py)*
 - Train DataSet Size: 4.3GB
 - Test DataSet Size: 106MB
+- Total Time: 2hr
 3. *(additional)* run rrvf_modeling_1st_version_test.ipynb to test rrvf_modeling_1st_modularization.ipynb
