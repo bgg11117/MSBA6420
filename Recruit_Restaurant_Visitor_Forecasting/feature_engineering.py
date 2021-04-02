@@ -24,15 +24,15 @@ class StoreFeatGenerator(object):
         
         for num in [58]:
             data_temp = self.truncate_dataset(self.key, num)
-            self.result.append(self.get_store_week_diff_feat(data_temp, self.label, self.key, num))
+            self.result.append(self.get_store_day_diff_feat(data_temp, self.label, self.key, num))
 #             del data_temp
                                
         for num in [600]:
             data_temp = self.truncate_dataset(self.key, num)
-            self.result.append(self.get_store_exp_visitor_feat(data_temp, self.label, self.key, num))          
-            self.result.append(self.get_store_week_diff_feat(data_temp, self.label, self.key, num))      # store dow diff features
-            self.result.append(self.get_store_all_week_feat(data_temp, self.label, self.key, num))       # store all week feat
-            self.result.append(self.get_store_week_exp_feat(data_temp, self.label, self.key, num))       # store dow exp feat
+            self.result.append(self.get_store_weighted_visitor_feat(data_temp, self.label, self.key, num))          
+            self.result.append(self.get_store_day_diff_feat(data_temp, self.label, self.key, num))      # store dow diff features
+            self.result.append(self.get_store_dow_feat(data_temp, self.label, self.key, num))       # store all week feat
+            self.result.append(self.get_store_dow_weighted_feat(data_temp, self.label, self.key, num))       # store dow exp feat
             self.result.append(self.get_store_holiday_feat(data_temp, self.label, self.key, num))        # store holiday feat        
             self.result.append(self.get_first_last_time(data_temp, self.label, self.key, num))             # first time and last time
 #             del data_temp
@@ -78,7 +78,7 @@ class StoreFeatGenerator(object):
         return final_result                
         
         
-    def get_store_exp_visitor_feat(self, data_temp, label, key, n_day):
+    def get_store_weighted_visitor_feat(self, data_temp, label, key, n_day):
     #     data_temp = truncate_dataset(key, n_day)
         data_temp['diff_of_day'] = data_temp['visit_date'].apply(lambda x: diff_of_days(key[0],x))
         result_list = pd.DataFrame()
@@ -98,7 +98,7 @@ class StoreFeatGenerator(object):
         return result_list
 
 
-    def get_store_week_diff_feat(self, data_temp, label, key, n_day):
+    def get_store_day_diff_feat(self, data_temp, label, key, n_day):
     #     data_temp = truncate_dataset(key, n_day)
         result = data_temp.set_index(['store_id','visit_date'])['visitors'].unstack()
         result = result.diff(axis=1).iloc[:,1:]
@@ -114,7 +114,7 @@ class StoreFeatGenerator(object):
         return result
 
 
-    def get_store_all_week_feat(self, data_temp, label, key, n_day):
+    def get_store_dow_feat(self, data_temp, label, key, n_day):
 #         data_temp = truncate_dataset(key, n_day)
         result_temp = data_temp.groupby(['store_id', 'dow'],as_index=False)['visitors'].agg({'store_dow_mean{}'.format(n_day): 'mean',
                                                                          'store_dow_median{}'.format(n_day): 'median',
@@ -134,7 +134,7 @@ class StoreFeatGenerator(object):
 
 
 
-    def get_store_week_exp_feat(self, data_temp, label, key, n_day):
+    def get_store_dow_weighted_feat(self, data_temp, label, key, n_day):
 #         data_temp = truncate_dataset(key, n_day)
         data_temp['diff_of_day'] = data_temp['visit_date'].apply(lambda x: diff_of_days(key[0],x))
 
@@ -206,8 +206,8 @@ class GenreFeatGenerator(StoreFeatGenerator):
         
         for num in [600]:
             data_temp = self.truncate_dataset(self.key, num)
-            self.result.append(self.get_genre_exp_visitor_feat(data_temp, self.label, self.key, num))          
-            self.result.append(self.get_genre_week_exp_feat(data_temp, self.label, self.key, num))       # store dow exp feat
+            self.result.append(self.get_genre_weighted_visitor_feat(data_temp, self.label, self.key, num))          
+            self.result.append(self.get_genre_dow_weighted_feat(data_temp, self.label, self.key, num))       # store dow exp feat
 #             del data_temp
             
 #         gc.collect()
@@ -243,7 +243,7 @@ class GenreFeatGenerator(StoreFeatGenerator):
         return final_result
 
 
-    def get_genre_exp_visitor_feat(self, data_temp, label, key, n_day):
+    def get_genre_weighted_visitor_feat(self, data_temp, label, key, n_day):
     #     data_temp = truncate_dataset(key, n_day)
         data_temp['diff_of_day'] = data_temp['visit_date'].apply(lambda x: diff_of_days(key[0],x))
         result_list = pd.DataFrame()
@@ -263,7 +263,7 @@ class GenreFeatGenerator(StoreFeatGenerator):
         return result_list
 
 
-    def get_genre_week_exp_feat(self, data_temp, label, key, n_day):
+    def get_genre_dow_weighted_feat(self, data_temp, label, key, n_day):
 #         data_temp = truncate_dataset(key, n_day)
         data_temp['diff_of_day'] = data_temp['visit_date'].apply(lambda x: diff_of_days(key[0],x))
         result_list = pd.DataFrame()
